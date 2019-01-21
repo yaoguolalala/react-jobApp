@@ -1,28 +1,29 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { connect } from 'react-redux'
+import { addGUN, remGUN,addGunAsync} from './index.redux'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            欢迎来到新日暮里
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+class App extends React.Component{
+  
+  render(){
+    console.log(this.props)
+    const num = this.props.num
+    const addGUN = this.props.addGUN
+    const remGUN = this.props.remGUN
+    const addGunAsync = this.props.addGunAsync 
+    return <div>
+        <h1>{num}</h1>
+        <button onClick={addGUN}>加</button>
+        <button onClick={remGUN}>减</button>
+        <button onClick={addGunAsync}>加</button>
       </div>
-    );
+      
   }
 }
 
-export default App;
+const mapStatetoProp = (state) => {
+  return {num:state}  
+}
+
+const actionCreactors = { addGUN, remGUN,addGunAsync}
+App = connect(mapStatetoProp,actionCreactors)(App)
+export default App
